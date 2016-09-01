@@ -28,53 +28,24 @@ import {Component} from '@angular/core';
                    (change) = "changeCompleted(item, completedCheckbox.checked)">
                    
                    <!--(change) = "changeCompleted(item)">-->
-                   
-                   
-            <label>{{ item.title }}</label>
+                                      
+                       
+            <label (click)="editItem(item)">{{ item.title }}</label>
+            
             <button class="destroy"
                     (click) = "destroyItem(item)">
             </button>
           </div>
-          <input class="edit">
+          <input class="edit"
+                 #editValue
+                 [value]="item.editedTitle"
+                 (keyup.enter)="saveChange(item, editValue)"
+                 (keyup.escape)="undoChange(item)">
+
       </li>
 
 
-
-      <!-- Item -->
-      <li>
-        <div class="view">
-          <input class="toggle"
-                 type="checkbox">
-          <label>Todo Title</label>
-          <button class="destroy"></button>
-        </div>
-        <input class="edit">
-      </li>
-
-      <!-- Completed -->
-      <li class="completed">
-        <div class="view">
-          <input class="toggle"
-                 type="checkbox"
-                 checked>
-          <label>Todo Title</label>
-          <button class="destroy"></button>
-        </div>
-        <input class="edit">
-      </li>
-
-      <!-- Editing Item -->
-      <li class="editing">
-        <div class="view">
-          <input class="toggle"
-                 type="checkbox">
-          <label>Todo Title</label>
-          <button class="destroy"></button>
-        </div>
-        <input class="edit">
-      </li>
-
-      <!-- /Item-->
+ 
     </ul>
   `
 })
@@ -85,7 +56,7 @@ export class TodoListComponent {
     {title: 'RSVP Yes', completed: true, editing: false},
     {title: 'Set up environment', completed: true, editing: false},
     {title: 'Clone project', completed: false, editing: false},
-    {title: 'Come to meetup', completed: false, editing: true},
+    {title: 'Come to meetup', completed: false, editing: false},
   ];
 
 
@@ -106,13 +77,29 @@ export class TodoListComponent {
     item.completed = !item.completed;
   }
 
-  destroyItem(item: any) : void {
+  destroyItem(item: any): void {
     const index = this.todoList.indexOf(item);
 
     this.todoList.splice(index, 1);
   }
 
 
+  editItem(item: any): void {
+    item.editing = true;
+    item.editedTitle = item.title;
+  }
+
+  saveChange(item: any, editValue: any): void {
+    console.log('saveChange');
+
+    item.title = editValue.value;
+    item.editing = false;
+  }
+
+  undoChange(item: any): void {
+    console.log('undoChange');
+    item.editing = false;
+  }
 
 
 }
