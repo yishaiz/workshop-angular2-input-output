@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'aah-todo-list',
@@ -23,7 +23,11 @@ import { Component } from '@angular/core';
             <input class="toggle"
                    type="checkbox"
                    [checked] = "item.completed"
-                   (change) = "changeCompleted(item)">
+                   
+                   #completedCheckbox
+                   (change) = "changeCompleted(item, completedCheckbox.checked)">
+                   
+                   <!--(change) = "changeCompleted(item)">-->
                    
                    
             <label>{{ item.title }}</label>
@@ -90,7 +94,13 @@ export class TodoListComponent {
     };
   }
 
-  changeCompleted(item){
+  changeCompleted(item: any, checked: boolean): void {
+    // item.completed = !item.completed;
+    item.completed = checked;
+  }
+
+
+  changeCompletedOtherWay(item: any): void {
     item.completed = !item.completed;
   }
 
