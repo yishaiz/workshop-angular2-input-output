@@ -21,7 +21,11 @@ import { Component } from '@angular/core';
         
         <div class="view">
             <input class="toggle"
-                   type="checkbox">
+                   type="checkbox"
+                   [checked] = "item.completed"
+                   (change) = "changeCompleted(item)">
+                   
+                   
             <label>{{ item.title }}</label>
             <button class="destroy"></button>
           </div>
@@ -85,4 +89,9 @@ export class TodoListComponent {
       editing: item.editing
     };
   }
+
+  changeCompleted(item){
+    item.completed = !item.completed;
+  }
+
 }
