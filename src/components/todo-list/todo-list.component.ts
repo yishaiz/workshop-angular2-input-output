@@ -31,7 +31,9 @@ import {Component} from '@angular/core';
                    
                    
             <label>{{ item.title }}</label>
-            <button class="destroy"></button>
+            <button class="destroy"
+                    (click) = "destroyItem(item)">
+            </button>
           </div>
           <input class="edit">
       </li>
@@ -103,5 +105,14 @@ export class TodoListComponent {
   changeCompletedOtherWay(item: any): void {
     item.completed = !item.completed;
   }
+
+  destroyItem(item: any) : void {
+    const index = this.todoList.indexOf(item);
+
+    this.todoList.splice(index, 1);
+  }
+
+
+
 
 }
