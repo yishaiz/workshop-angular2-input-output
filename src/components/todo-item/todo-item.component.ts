@@ -22,7 +22,7 @@ import {Component, Input, Output, EventEmitter} from '@angular/core';
                    
                    <!--(change) = "changeCompleted(item)">-->
                        
-            <label (click)="editItem(item, $event)">{{ item.title }}</label>
+            <label (click)="editItem(item, $event, editValue)">{{ item.title }}</label>
             
             <button class="destroy"
                     (click) = "destroyItem(item)">
@@ -32,7 +32,8 @@ import {Component, Input, Output, EventEmitter} from '@angular/core';
                  #editValue
                  [value]="item.editedTitle"
                  (keyup.enter)="saveChange(item, editValue)"
-                 (keyup.escape)="undoChange(item)">
+                 (keyup.escape)="undoChange(item)"
+                 (blur)="undoChange(item)">
 
       </li>
 
@@ -65,11 +66,18 @@ export class TodoItemComponent {
     item.completed = !item.completed;
   }
 
-  editItem(item: any, event: any): void {
+  editItem(item: any, event: any, editValue : any): void {
     console.log(event);
+    console.log(editValue);
+
+    // editValue.focus();
 
     item.editing = true;
-    item.editedTitle = item.title;
+
+    // item.editedTitle = item.title;
+    editValue.value = item.title;
+
+    console.log(editValue);
   }
 
   saveChange(item: any, editValue: any): void {
