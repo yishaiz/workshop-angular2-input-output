@@ -14,8 +14,10 @@ import {Component} from '@angular/core';
 
        <aah-todo-item *ngFor="let item of todoList"
                       [item] ="item"
-                      [myName] ="item.title"
-                      (destroy) = "destroyItem($event)"> </aah-todo-item>  
+                      (destroy) = "destroyItem($event)"> </aah-todo-item>
+ 
+              <!--[myName] ="item.title"-->
+
     </ul>
   `
 })
