@@ -7,19 +7,14 @@ import {Component} from '@angular/core';
   template: `
     <ul class="todo-list">
 
+      <!--
+      <li *ngFor="let item of todoList">
+        {{item.title}}
+      </li>-->
 
-<!--
-<li *ngFor="let item of todoList">
-  {{item.title}}
-</li>-->
-
-       <aah-todo-list *ngFor="let item of todoList"
-                      [item] ="item"> </aah-todo-list>  
-     
-
-   
-
- 
+       <aah-todo-item *ngFor="let item of todoList"
+                      [item] ="item"
+                      (destroy) = "destroyItem($event)"> </aah-todo-item>  
     </ul>
   `
 })

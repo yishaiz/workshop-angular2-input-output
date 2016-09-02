@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'aah-todo-item',
@@ -6,8 +6,8 @@ import {Component, Input} from '@angular/core';
 
   template: `
 
-      <li *ngFor="let item of todoList" 
-        [ngClass]="getItemClass(item)">
+<!--*ngFor="let item of todoList"-->
+      <li [ngClass]="getItemClass(item)">
         <!--[ngClass]="{bold : item.isBold}"-->
         
         <div class="view">
@@ -40,7 +40,8 @@ import {Component, Input} from '@angular/core';
 
 export class TodoItemComponent {
 
-  @Input  item
+  @Input() item: any;
+  @Output () destroy: EventEmitter<any> = new EventEmitter();
 
   getItemClass(item: any): any {
     return {
@@ -60,8 +61,6 @@ export class TodoItemComponent {
   }
 
 
-
-
   editItem(item: any): void {
     item.editing = true;
     item.editedTitle = item.title;
@@ -78,4 +77,9 @@ export class TodoItemComponent {
     console.log('undoChange');
     item.editing = false;
   }
+
+  destroyItem(item: any){
+    this.destroy.emit(item);
+  }
+
 }
