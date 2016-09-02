@@ -9,7 +9,7 @@ import {Component, Input, Output, EventEmitter} from '@angular/core';
 <!--*ngFor="let item of todoList"-->
       <li [ngClass]="getItemClass(item)">
         <!--[ngClass]="{bold : item.isBold}"-->
-        
+        <div>another input : {{anotherInput}}</div>
         <div class="view">
             <input class="toggle"
                    type="checkbox"
@@ -19,7 +19,6 @@ import {Component, Input, Output, EventEmitter} from '@angular/core';
                    (change) = "changeCompleted(item, completedCheckbox.checked)">
                    
                    <!--(change) = "changeCompleted(item)">-->
-                                      
                        
             <label (click)="editItem(item)">{{ item.title }}</label>
             
@@ -41,6 +40,8 @@ import {Component, Input, Output, EventEmitter} from '@angular/core';
 export class TodoItemComponent {
 
   @Input() item: any;
+  @Input('myName') anotherInput: any;
+
   @Output () destroy: EventEmitter<any> = new EventEmitter();
 
   getItemClass(item: any): any {
