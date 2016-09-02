@@ -10,8 +10,13 @@ import {Component} from '@angular/core';
 export class AppComponent {
   numberOfNotCompletedItems: number;
 
-  displayNumberOfItemsLeft(numberOfItems) {
+  displayNumberOfItemsLeft(numberOfItems) : void{
     this.numberOfNotCompletedItems = numberOfItems;
   }
 
+  clearCompletedItems() : void{
+    console.log('clear completed');
+
+
+  }
 }

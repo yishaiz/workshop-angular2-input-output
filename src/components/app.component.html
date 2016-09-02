@@ -11,6 +11,7 @@
 
   </section>
 
-  <aah-footer [itemsLeft]="numberOfNotCompletedItems"></aah-footer>
+  <aah-footer [itemsLeft]="numberOfNotCompletedItems"
+              (clearCompleted)="clearCompletedItems()"></aah-footer>
 
 </section>

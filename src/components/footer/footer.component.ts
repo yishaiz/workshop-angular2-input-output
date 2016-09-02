@@ -10,7 +10,7 @@ import {Component, Input, Output, EventEmitter} from '@angular/core';
         <strong>{{itemsLeft}}</strong> item left
       </span>
       <button class="clear-completed"
-        (clear) = "clearCompletedItems()">Clear completed</button>
+        (click) = "clearCompletedItems()">Clear completed</button>
     </footer>
   `
 })
@@ -20,6 +20,8 @@ export class FooterComponent {
   @Output() clearCompleted: EventEmitter<any> = new EventEmitter();
 
   clearCompletedItems(): void {
+    console.log("clearCompletedItems");
 
+    this.clearCompleted.emit();
   }
 }
