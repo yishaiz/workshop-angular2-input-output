@@ -48,6 +48,7 @@ export class TodoItemComponent {
   // @Input('myName') anotherInput: any;
 
   @Output () destroy: EventEmitter<any> = new EventEmitter();
+  @Output() notifyCompletedChange: EventEmitter<any> = new EventEmitter();
 
   getItemClass(item: any): any {
     return {
@@ -59,6 +60,8 @@ export class TodoItemComponent {
   changeCompleted(item: any, checked: boolean): void {
     // item.completed = !item.completed;
     item.completed = checked;
+
+    this.notifyCompletedChange.emit(item);
   }
 
 

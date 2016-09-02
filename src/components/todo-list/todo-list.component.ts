@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'aah-todo-list',
@@ -14,7 +14,8 @@ import {Component} from '@angular/core';
 
        <aah-todo-item *ngFor="let item of todoList"
                       [item] ="item"
-                      (destroy) = "destroyItem($event)"> </aah-todo-item>
+                      (destroy) = "destroyItem($event)"
+                      (notifyCompletedChange) = "getNotCompletedItemsCount()"> </aah-todo-item>
  
               <!--[myName] ="item.title"-->
 
@@ -22,7 +23,9 @@ import {Component} from '@angular/core';
   `
 })
 
-export class TodoListComponent {
+export class TodoListComponent implements OnInit {
+
+  @Output() notifyNumberOfItemsLeft: EventEmitter<any> = new EventEmitter();
 
   todoList = [
     {title: 'RSVP Yes', completed: true, editing: false},
@@ -32,10 +35,29 @@ export class TodoListComponent {
   ];
 
 
+  ngOnInit() {
+    this.getNotCompletedItemsCount();
+  }
+
   destroyItem(item: any): void {
     const index = this.todoList.indexOf(item);
 
     this.todoList.splice(index, 1);
+  }
+
+  getNotCompletedItemsCount(): void {
+
+    let notCompletedItems = this.todoList.filter(function (item) {
+      return item.completed == false;
+    })
+
+    console.log(notCompletedItems);
+
+    var remainItemsCount = this.todoList.filter(function (item) {
+      return item.completed == false;
+    }).length;
+
+    this.notifyNumberOfItemsLeft.emit(remainItemsCount);
   }
 
 }

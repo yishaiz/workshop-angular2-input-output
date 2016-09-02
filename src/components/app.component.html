@@ -7,10 +7,10 @@
     <input class="toggle-all"
            type="checkbox">
 
-    <aah-todo-list></aah-todo-list>
+    <aah-todo-list (notifyNumberOfItemsLeft)="displayNumberOfItemsLeft($event)"></aah-todo-list>
 
   </section>
 
-  <aah-footer></aah-footer>
+  <aah-footer [itemsLeft]="numberOfNotCompletedItems"></aah-footer>
 
 </section>

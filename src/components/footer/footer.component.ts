@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'aah-footer',
@@ -7,14 +7,19 @@ import { Component } from '@angular/core';
   template: `
     <footer class="footer">
       <span class="todo-count">
-        <strong>1</strong>
-        item left
+        <strong>{{itemsLeft}}</strong> item left
       </span>
-      <button class="clear-completed">Clear completed</button>
+      <button class="clear-completed"
+        (clear) = "clearCompletedItems()">Clear completed</button>
     </footer>
   `
 })
 
 export class FooterComponent {
-  
+  @Input() itemsLeft: number;
+  @Output() clearCompleted: EventEmitter<any> = new EventEmitter();
+
+  clearCompletedItems(): void {
+
+  }
 }
