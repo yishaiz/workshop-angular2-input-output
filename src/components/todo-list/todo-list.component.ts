@@ -51,20 +51,20 @@ export class TodoListComponent implements OnInit, OnChanges {
 
   getNotCompletedItemsCount(): void {
 
-    let notCompletedItems = this.todoList.filter(function (item) {
+    let notCompletedItems = this.todoList.filter((item: any) => {
       return item.completed == false;
     })
 
     console.log(notCompletedItems);
 
-    var remainItemsCount = this.todoList.filter(function (item) {
+    let remainItemsCount = this.todoList.filter((item: any) => {
       return item.completed == false;
     }).length;
 
     this.notifyNumberOfItemsLeft.emit(remainItemsCount);
   }
 
-  ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
+  ngOnChanges(changes: {[propKey: string]: SimpleChange}): void {
     let log: string[] = [];
 
     for (let propName in changes) {
@@ -73,20 +73,38 @@ export class TodoListComponent implements OnInit, OnChanges {
       let to = JSON.stringify(changedProp.currentValue);
       log.push(`${propName} changed from ${from} to ${to}`);
 
-     /* if(to !="0"){
+      if (to != "0") {
         console.log('clear completed detection');
 
-      }*/
+        this.clearCompleted();
+      }
     }
     this.changeLog.push(log.join(', '));
 
     console.log(this.changeLog);
-
-    // this.clearCompleted();
   }
 
- /* clearCompleted(){
-//    let completed =
+  clearCompleted(): void {
+    /*
+     let completed = this.todoList.filter(function (item) {
+     return item.completed == true;
+     });
+     */
+
+    let completed = this.todoList.filter((item: any) => {
+      return item.completed == true;
+    });
+
+    completed.forEach((item: any)=> {
+      this.destroyItem(item);
+    });
+
+    /*
+     completed.forEach(function (item): void {
+     this.destroyItem(item);
+     });
+     */
+
   }
-*/
 }
+  
