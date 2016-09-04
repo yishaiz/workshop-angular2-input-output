@@ -1,4 +1,5 @@
 import {Component, Input, Output, OnInit, EventEmitter, OnChanges, SimpleChange} from '@angular/core';
+import {TodoService} from '../../services/todo.service';
 
 @Component({
   selector: 'aah-todo-list',
@@ -31,35 +32,43 @@ export class TodoListComponent implements OnInit, OnChanges {
 
   @Output() notifyNumberOfItemsLeft: EventEmitter<any> = new EventEmitter();
 
-  todoList = [
-    {title: 'RSVP Yes', completed: true, editing: false},
-    {title: 'Set up environment', completed: true, editing: false},
-    {title: 'Clone project', completed: false, editing: false},
-    {title: 'Come to meetup', completed: false, editing: false},
-  ];
+  constructor(private todoService: TodoService) {
+    //todoService
+  }
 
+  todoList: Array<any> = [];
+
+  /*todoList = [
+   {title: 'RSVP Yes', completed: true, editing: false},
+   {title: 'Set up environment', completed: true, editing: false},
+   {title: 'Clone project', completed: false, editing: false},
+   {title: 'Come to meetup', completed: false, editing: false},
+   ];
+   */
 
   ngOnInit() {
+    this.getTodos();
+
     this.getNotCompletedItemsCount();
   }
 
-  destroyItem(item: any): void {
-    const index = this.todoList.indexOf(item);
 
-    this.todoList.splice(index, 1);
+  getTodos() {
+    this.todoService.getTodos().then(
+      todos=>this.todoList = todos
+    );
+  }
+
+  destroyItem(item: any): void {
+    //can be also as promise
+    this.todoService.destroyItem(item);
+
+    this.getTodos();
   }
 
   getNotCompletedItemsCount(): void {
 
-    let notCompletedItems = this.todoList.filter((item: any) => {
-      return item.completed == false;
-    })
-
-    console.log(notCompletedItems);
-
-    let remainItemsCount = this.todoList.filter((item: any) => {
-      return item.completed == false;
-    }).length;
+    let remainItemsCount = this.todoService.getNotCompletedItemsCount();
 
     this.notifyNumberOfItemsLeft.emit(remainItemsCount);
   }
@@ -85,26 +94,9 @@ export class TodoListComponent implements OnInit, OnChanges {
   }
 
   clearCompleted(): void {
-    /*
-     let completed = this.todoList.filter(function (item) {
-     return item.completed == true;
-     });
-     */
+    this.todoService.clearCompleted();
 
-    let completed = this.todoList.filter((item: any) => {
-      return item.completed == true;
-    });
-
-    completed.forEach((item: any)=> {
-      this.destroyItem(item);
-    });
-
-    /*
-     completed.forEach(function (item): void {
-     this.destroyItem(item);
-     });
-     */
-
+    this.getTodos();
   }
 }
-  
+
