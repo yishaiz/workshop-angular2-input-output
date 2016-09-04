@@ -10,6 +10,9 @@ import {Component} from '@angular/core';
 export class AppComponent {
   numberOfNotCompletedItems: number;
 
+  tempVaribaleForClearCompleted:number=0 ;
+
+
   displayNumberOfItemsLeft(numberOfItems) : void{
     this.numberOfNotCompletedItems = numberOfItems;
   }
@@ -17,6 +20,7 @@ export class AppComponent {
   clearCompletedItems() : void{
     console.log('clear completed');
 
+    this.tempVaribaleForClearCompleted+=1;
 
   }
 }

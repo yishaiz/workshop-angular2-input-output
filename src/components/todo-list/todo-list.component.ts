@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, OnInit, EventEmitter, OnChanges, SimpleChange} from '@angular/core';
 
 @Component({
   selector: 'aah-todo-list',
@@ -23,7 +23,12 @@ import {Component, OnInit, Output, EventEmitter} from '@angular/core';
   `
 })
 
-export class TodoListComponent implements OnInit {
+export class TodoListComponent implements OnInit, OnChanges {
+
+
+  @Input() detectChangeInParent: any;
+
+  changeLog: string[] = [];
 
   @Output() notifyNumberOfItemsLeft: EventEmitter<any> = new EventEmitter();
 
@@ -60,4 +65,29 @@ export class TodoListComponent implements OnInit {
     this.notifyNumberOfItemsLeft.emit(remainItemsCount);
   }
 
+  ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
+    let log: string[] = [];
+
+    for (let propName in changes) {
+      let changedProp = changes[propName];
+      let from = JSON.stringify(changedProp.previousValue);
+      let to = JSON.stringify(changedProp.currentValue);
+      log.push(`${propName} changed from ${from} to ${to}`);
+
+     /* if(to !="0"){
+        console.log('clear completed detection');
+
+      }*/
+    }
+    this.changeLog.push(log.join(', '));
+
+    console.log(this.changeLog);
+
+    // this.clearCompleted();
+  }
+
+ /* clearCompleted(){
+//    let completed =
+  }
+*/
 }

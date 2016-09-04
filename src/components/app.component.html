@@ -7,7 +7,9 @@
     <input class="toggle-all"
            type="checkbox">
 
-    <aah-todo-list (notifyNumberOfItemsLeft)="displayNumberOfItemsLeft($event)"></aah-todo-list>
+    <aah-todo-list
+      (notifyNumberOfItemsLeft)="displayNumberOfItemsLeft($event)"
+      [detectChangeInParent]="tempVaribaleForClearCompleted"></aah-todo-list>
 
   </section>
 

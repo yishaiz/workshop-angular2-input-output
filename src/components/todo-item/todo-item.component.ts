@@ -47,8 +47,9 @@ export class TodoItemComponent {
   //sample of give a different name for parameter:
   // @Input('myName') anotherInput: any;
 
-  @Output () destroy: EventEmitter<any> = new EventEmitter();
+  @Output() destroy: EventEmitter<any> = new EventEmitter();
   @Output() notifyCompletedChange: EventEmitter<any> = new EventEmitter();
+
 
   getItemClass(item: any): any {
     return {
@@ -64,12 +65,11 @@ export class TodoItemComponent {
     this.notifyCompletedChange.emit(item);
   }
 
-
   changeCompletedOtherWay(item: any): void {
     item.completed = !item.completed;
   }
 
-  editItem(item: any, event: any, editValue : any): void {
+  editItem(item: any, event: any, editValue: any): void {
     console.log(event);
     console.log(editValue);
 
@@ -95,7 +95,7 @@ export class TodoItemComponent {
     item.editing = false;
   }
 
-  destroyItem(item: any){
+  destroyItem(item: any) {
     this.destroy.emit(item);
   }
 
