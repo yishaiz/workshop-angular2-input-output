@@ -1,4 +1,5 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {TodoItem} from "../../models/todo-item.model";
 
 @Component({
   selector: 'aah-todo-item',
@@ -42,7 +43,7 @@ import {Component, Input, Output, EventEmitter} from '@angular/core';
 
 export class TodoItemComponent {
 
-  @Input() item: any;
+  @Input() item: TodoItem;
 
   //sample of give a different name for parameter:
   // @Input('myName') anotherInput: any;
@@ -51,25 +52,25 @@ export class TodoItemComponent {
   @Output() notifyCompletedChange: EventEmitter<any> = new EventEmitter();
 
 
-  getItemClass(item: any): any {
+  getItemClass(item: TodoItem): any {
     return {
       completed: item.completed,
       editing: item.editing
     };
   }
 
-  changeCompleted(item: any, checked: boolean): void {
+  changeCompleted(item: TodoItem, checked: boolean): void {
     // item.completed = !item.completed;
     item.completed = checked;
 
     this.notifyCompletedChange.emit(item);
   }
 
-  changeCompletedOtherWay(item: any): void {
+  changeCompletedOtherWay(item: TodoItem): void {
     item.completed = !item.completed;
   }
 
-  editItem(item: any, event: any, editValue: any): void {
+  editItem(item: TodoItem, event: any, editValue: any): void {
     console.log(event);
     console.log(editValue);
 
@@ -83,19 +84,19 @@ export class TodoItemComponent {
     console.log(editValue);
   }
 
-  saveChange(item: any, editValue: any): void {
+  saveChange(item: TodoItem, editValue: any): void {
     console.log('saveChange');
 
     item.title = editValue.value;
     item.editing = false;
   }
 
-  undoChange(item: any): void {
+  undoChange(item: TodoItem): void {
     console.log('undoChange');
     item.editing = false;
   }
 
-  destroyItem(item: any) {
+  destroyItem(item: TodoItem): void {
     this.destroy.emit(item);
   }
 

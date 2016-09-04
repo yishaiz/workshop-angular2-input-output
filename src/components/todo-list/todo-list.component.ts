@@ -1,5 +1,6 @@
 import {Component, Input, Output, OnInit, EventEmitter, OnChanges, SimpleChange} from '@angular/core';
 import {TodoService} from '../../services/todo.service';
+import {TodoItem} from "../../models/todo-item.model";
 
 @Component({
   selector: 'aah-todo-list',
@@ -36,7 +37,7 @@ export class TodoListComponent implements OnInit, OnChanges {
     //todoService
   }
 
-  todoList: Array<any> = [];
+  todoList: Array<TodoItem> = [];
 
   /*todoList = [
    {title: 'RSVP Yes', completed: true, editing: false},
@@ -46,24 +47,30 @@ export class TodoListComponent implements OnInit, OnChanges {
    ];
    */
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getTodos();
 
     this.getNotCompletedItemsCount();
   }
 
 
-  getTodos() {
+  getTodos(): void {
     this.todoService.getTodos().then(
-      todos=>this.todoList = todos
+      todos=>{
+        this.todoList = todos;
+
+        this.getNotCompletedItemsCount();
+      }
     );
   }
 
-  destroyItem(item: any): void {
+  destroyItem(item: TodoItem): void {
     //can be also as promise
     this.todoService.destroyItem(item);
 
     this.getTodos();
+
+    //this.getNotCompletedItemsCount();
   }
 
   getNotCompletedItemsCount(): void {

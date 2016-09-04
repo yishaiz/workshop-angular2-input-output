@@ -1,24 +1,25 @@
 import  {Injectable} from '@angular/core';
 
 import 'rxjs/add/operator/toPromise';
+import {TodoItem} from "../models/todo-item.model";
 
 @Injectable()
 export class TodoService {
 
-  todoList: Array<any> = [
+  todoList: Array<TodoItem> = [
     {title: 'RSVP Yes', completed: true, editing: false},
     {title: 'Set up environment', completed: true, editing: false},
     {title: 'Clone project', completed: false, editing: false},
     {title: 'Come to meetup', completed: false, editing: false},
   ];
 
-  getTodos(): Promise<any[]> {
+  getTodos(): Promise<TodoItem[]> {
     return Promise.resolve(
       this.todoList
     );
   }
 
-  destroyItem(item: any): void {
+  destroyItem(item: TodoItem): void {
     const index = this.todoList.indexOf(item);
 
     this.todoList.splice(index, 1);
@@ -34,7 +35,7 @@ export class TodoService {
     console.log(notCompletedItems);
 */
 
-    let remainItemsCount = this.todoList.filter((item: any) => {
+    let remainItemsCount = this.todoList.filter((item: TodoItem) => {
       return item.completed == false;
     }).length;
 
@@ -43,11 +44,11 @@ export class TodoService {
 
 
   clearCompleted(): void {
-    let completed = this.todoList.filter((item: any) => {
+    let completed = this.todoList.filter((item: TodoItem) => {
       return item.completed == true;
     });
 
-    completed.forEach((item: any)=> {
+    completed.forEach((item: TodoItem)=> {
       this.destroyItem(item);
     });
   }
