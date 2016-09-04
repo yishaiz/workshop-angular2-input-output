@@ -25,7 +25,6 @@ import {Component, Input, Output, OnInit, EventEmitter, OnChanges, SimpleChange}
 
 export class TodoListComponent implements OnInit, OnChanges {
 
-
   @Input() detectChangeInParent: any;
 
   changeLog: string[] = [];
