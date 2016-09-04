@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, Output, EventEmitter} from '@angular/core';
+import {TodoListService} from '../../services/todo-list.service';
+
 
 @Component({
   selector: 'aah-todo-input',
@@ -7,10 +9,28 @@ import { Component } from '@angular/core';
   template: `
     <input class="new-todo"
            placeholder="What needs to be done?"
-           autofocus>
+           autofocus
+           #newTodoInput
+           (keyup.enter)="addItem(newTodoInput)">
   `
+
+
 })
 
 export class TodoInputComponent {
-  
+
+  @Output() addNewItem: EventEmitter<any> = new EventEmitter();
+
+  constructor (private todoListService :TodoListService){
+
+  }
+
+
+  addItem(inputElement): void {
+
+    this.todoListService.addItem(inputElement.value );
+
+    inputElement.value = '';
+  }
+
 }

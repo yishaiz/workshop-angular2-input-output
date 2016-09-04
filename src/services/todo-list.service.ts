@@ -4,7 +4,7 @@ import 'rxjs/add/operator/toPromise';
 import {TodoItem} from "../models/todo-item.model";
 
 @Injectable()
-export class TodoService {
+export class TodoListService {
 
   todoList: Array<TodoItem> = [
     {title: 'RSVP Yes', completed: true, editing: false},
@@ -17,6 +17,10 @@ export class TodoService {
     return Promise.resolve(
       this.todoList
     );
+  }
+
+  getTotalCount(){
+   return this.todoList.length;
   }
 
   destroyItem(item: TodoItem): void {
@@ -51,6 +55,10 @@ export class TodoService {
     completed.forEach((item: TodoItem)=> {
       this.destroyItem(item);
     });
+  }
+
+  addItem(title: string): void {
+    this.todoList.push(new TodoItem(title));
   }
 
 }

@@ -8,6 +8,9 @@ import {TodoItem} from "../../models/todo-item.model";
   template: `
 
 <!--*ngFor="let item of todoList"-->
+
+    <!--<li [ngClass]="{completed: item.completed, editing: item.editing}">-->
+
       <li [ngClass]="getItemClass(item)">
         <!--[ngClass]="{bold : item.isBold}"-->
         

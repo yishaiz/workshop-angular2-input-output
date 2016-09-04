@@ -1,5 +1,5 @@
 import {Component, Input, Output, OnInit, EventEmitter, OnChanges, SimpleChange} from '@angular/core';
-import {TodoService} from '../../services/todo.service';
+import {TodoListService} from '../../services/todo-list.service';
 import {TodoItem} from "../../models/todo-item.model";
 
 @Component({
@@ -33,7 +33,7 @@ export class TodoListComponent implements OnInit, OnChanges {
 
   @Output() notifyNumberOfItemsLeft: EventEmitter<any> = new EventEmitter();
 
-  constructor(private todoService: TodoService) {
+  constructor(private todoService: TodoListService) {
     //todoService
   }
 

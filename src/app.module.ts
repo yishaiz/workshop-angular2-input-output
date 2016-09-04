@@ -8,7 +8,7 @@ import {TodoItemComponent} from './components/todo-item/todo-item.component';
 import {FooterComponent} from './components/footer/footer.component';
 import {TodoInputComponent} from './components/todo-input/todo-input.component';
 
-import {TodoService} from './services/todo.service';
+import {TodoListService} from './services/todo-list.service';
 
 @NgModule({
   imports: [BrowserModule],
@@ -20,7 +20,7 @@ import {TodoService} from './services/todo.service';
     TodoListComponent,
     TodoItemComponent
   ],
-  providers: [TodoService],
+  providers: [TodoListService],
   bootstrap: [AppComponent],
 })
 
